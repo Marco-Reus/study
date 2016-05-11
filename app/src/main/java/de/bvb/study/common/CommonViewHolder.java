@@ -1,6 +1,7 @@
 package de.bvb.study.common;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,9 +39,9 @@ public class CommonViewHolder {
         }
     }
 
-    public int getPosition() { return position;   }
+    public int getPosition() { return position; }
 
-    public View getConvertView() { return convertView;  }
+    public View getConvertView() { return convertView; }
 
     public <T extends View> T getView(int viewId) {
         View view = views.get(viewId);
@@ -56,8 +57,13 @@ public class CommonViewHolder {
         return this;
     }
 
-    public CommonViewHolder setImageResource(int viewId, int resId) {
+    public CommonViewHolder setImage(int viewId, int resId) {
         ((ImageView) getView(viewId)).setImageResource(resId);
+        return this;
+    }
+
+    public CommonViewHolder setImage(int viewId, Bitmap bitmap) {
+        ((ImageView) getView(viewId)).setImageBitmap(bitmap);
         return this;
     }
 

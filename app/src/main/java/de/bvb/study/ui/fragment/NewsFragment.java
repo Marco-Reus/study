@@ -28,7 +28,7 @@ public class NewsFragment extends BaseFragment {
         view = View.inflate(getActivity(), R.layout.fragment_news, null);
         viewPagerIndicator = $(view, R.id.viewPagerIndicatorNews);
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new BaseFragment());
+        fragments.add(new SportFragment());
         fragments.add(new BaseFragment());
         fragments.add(new BaseFragment());
         fragments.add(new BaseFragment());

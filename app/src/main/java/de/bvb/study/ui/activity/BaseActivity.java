@@ -8,6 +8,9 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.Window;
 
+import cn.jpush.android.api.JPushInterface;
+import de.bvb.study.MyApplication;
+
 /**
  * Created by Administrator on 2016/5/8.
  */
@@ -27,5 +30,17 @@ public class BaseActivity extends FragmentActivity {
         super.onCreate(savedInstanceState, persistentState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         context = this;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (MyApplication.jPushEnable) JPushInterface.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (MyApplication.jPushEnable) JPushInterface.onPause(this);
     }
 }

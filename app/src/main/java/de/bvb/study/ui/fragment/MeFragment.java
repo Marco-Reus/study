@@ -42,7 +42,7 @@ public class MeFragment extends BaseFragment implements AdapterView.OnItemClickL
         adapter = new CommonAdapter<MeListViewAdapterEntity>(getContext(), dataList, R.layout.adapter_me_list_view) {
             @Override
             public void convert(CommonViewHolder holder, MeListViewAdapterEntity meListViewAdapterEntity) {
-                holder.setImageResource(R.id.ivIcon, meListViewAdapterEntity.titleIconResId);
+                holder.setImage(R.id.ivIcon, meListViewAdapterEntity.titleIconResId);
                 holder.setText(R.id.tvTitle, meListViewAdapterEntity.titleName);
             }
         };
@@ -58,11 +58,11 @@ public class MeFragment extends BaseFragment implements AdapterView.OnItemClickL
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        ActivityUtil.startActivity(context, dataList.get(position).interfaceClassName);
+        ActivityUtil.startActivity(getContext(), dataList.get(position).interfaceClassName);
     }
 
     @Override
     public void onClick(View v) {
-        ActivityUtil.startActivity(context, LoginActivity.class);
+        ActivityUtil.startActivity(getContext(), LoginActivity.class);
     }
 }

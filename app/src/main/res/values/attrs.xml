@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SlidingMenuHorizontalScrollView">
+        <attr name="contentWidthWhenLeftMenuVisibility" format="dimension"/>
+        <attr name="leftMenuBgColor" format="color"/>
+    </declare-styleable>
+</resources>

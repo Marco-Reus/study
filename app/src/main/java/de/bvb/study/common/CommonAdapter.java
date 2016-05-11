@@ -15,11 +15,23 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
     private Context context;
     private int layoutId;
 
+    /**
+     * 通用的 adapter 构造
+     *
+     * @param context
+     * @param dataList 数据源
+     * @param layoutId 布局文件
+     */
     public CommonAdapter(Context context, List<T> dataList, int layoutId) {
         super();
         this.dataList = dataList;
         this.context = context;
         this.layoutId = layoutId;
+    }
+
+    public void setDataList(List<T> dataList) {
+        this.dataList = dataList;
+        notifyDataSetChanged();
     }
 
     @Override
