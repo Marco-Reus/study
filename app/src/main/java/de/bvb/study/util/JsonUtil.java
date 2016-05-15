@@ -6,7 +6,7 @@ import com.google.gson.JsonSyntaxException;
 /**
  * Created by Administrator on 2016/5/11.
  */
-public class JsonUtil {
+public class JsonUtil extends BaseUtil {
     public static <T> T fromJson(String json, Class<T> t) {
         Gson gson = new Gson();
         try {

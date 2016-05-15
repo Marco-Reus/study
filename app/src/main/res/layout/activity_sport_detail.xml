@@ -12,8 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <de.bvb.study.ui.widget.ViewPagerIndicator
-        android:id="@+id/viewPagerIndicatorMain"
+    <ProgressBar
+        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+        android:id="@+id/pbDetail"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <WebView
+        android:id="@+id/webViewDetail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

@@ -12,10 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <de.bvb.study.ui.widget.ViewPagerIndicator
-        android:id="@+id/viewPagerIndicatorMain"
+    <ToggleButton
+        android:id="@+id/toggleButtonFlash"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="48dp"
+        android:checked="false"/>
 </LinearLayout>
 
 

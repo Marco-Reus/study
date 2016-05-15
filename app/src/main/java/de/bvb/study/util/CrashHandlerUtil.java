@@ -17,16 +17,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 保存运行时异常的信息到手机上
+ * 保存运行时异常的信息到手机上<p/>
+ * 文件路径:
+ * /sdcard/Android/%package_name%/files/logs/crash_yyyy_MM_dd.log<br/>
  * TODO 异常会保存3次, 应用会重启两次,这个不知道什么原因
  */
-public class CrashHandlerUtil implements Thread.UncaughtExceptionHandler {
+public class CrashHandlerUtil extends BaseUtil implements Thread.UncaughtExceptionHandler {
 
     private final String FILE_NAME_FORMAT = "yyyy_MM_dd";
     private final String FILE_NAME_PREFIXES = "crash_";
     private final String FILE_NAME_EXTENSION = ".log";
     private final String CRASH_TIME_FORMAT = "[yyyy-MM-dd HH:mm:ss:sss]";
-    private final String PARENT_DIRECTORY_NAME = "logs";
+    private final String FILE_PATH = "logs";
 
     private Context mContext;
     private Thread.UncaughtExceptionHandler defaultUncaughtExceptionHandler;
@@ -49,7 +51,7 @@ public class CrashHandlerUtil implements Thread.UncaughtExceptionHandler {
     /** 在 自定义的Application 中 调用此方法即可 */
     public void init(Context context) {
         mContext = context;
-        filePath = mContext.getExternalFilesDir(PARENT_DIRECTORY_NAME) + File.separator;
+        filePath = mContext.getExternalFilesDir(FILE_PATH) + File.separator;
         fileName = FILE_NAME_PREFIXES + new SimpleDateFormat(FILE_NAME_FORMAT).format(System.currentTimeMillis()) + FILE_NAME_EXTENSION;
         defaultUncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
         Thread.setDefaultUncaughtExceptionHandler(this);

@@ -1,10 +1,12 @@
 package de.bvb.study.ui.fragment;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.volley.RequestQueue;
@@ -21,13 +23,14 @@ import de.bvb.study.R;
 import de.bvb.study.common.CommonAdapter;
 import de.bvb.study.common.CommonViewHolder;
 import de.bvb.study.entity.SportListViewAdapterEntity;
+import de.bvb.study.ui.activity.SportDetailActivity;
 import de.bvb.study.util.JsonUtil;
 import de.bvb.study.util.LogUtil;
 
 /**
  * Created by Administrator on 2016/5/8.
  */
-public class SportFragment extends BaseFragment {
+public class SportFragment extends BaseFragment implements AdapterView.OnItemClickListener {
 
     public static final String url = "http://route.showapi.com/196-1?showapi_appid=18729&showapi_sign=c16816c445284126a3b24f3162fb439e&num=3";
 
@@ -87,7 +90,14 @@ public class SportFragment extends BaseFragment {
             }
         };
         listViewSport.setAdapter(adapter);
+        listViewSport.setOnItemClickListener(this);
         return view;
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(getActivity(), SportDetailActivity.class);
+        intent.putExtra(SportDetailActivity.EXTRA_KEY_URL, dataList.get(position).url);
+        startActivity(intent);
+    }
 }

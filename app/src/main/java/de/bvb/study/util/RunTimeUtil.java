@@ -1,10 +1,7 @@
 package de.bvb.study.util;
 
-import android.util.Log;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -51,7 +48,7 @@ public class RunTimeUtil extends BaseUtil {
         } catch (Exception e) {
             //e.printStackTrace();
         } finally {
-            closeCloseable(reader, writer);
+            StreamUtil.closeCloseable(reader, writer);
             if (process != null) process.destroy();
         }
         return dataList;
@@ -69,7 +66,7 @@ public class RunTimeUtil extends BaseUtil {
         } catch (Exception e) {
             // e.printStackTrace();
         } finally {
-            closeCloseable(writer);
+            StreamUtil.closeCloseable(writer);
             if (process != null) process.destroy();
         }
     }
@@ -95,28 +92,14 @@ public class RunTimeUtil extends BaseUtil {
             writer = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
             runCmd(writer, cmd);
             process.waitFor();
-            Log.d("runtime", "onCreate: process.exitValue()  " + process.exitValue());
             result = process.exitValue() == 0;
         } catch (Exception e) {
             // e.printStackTrace();
         } finally {
-            closeCloseable(writer);
+            StreamUtil.closeCloseable(writer);
             if (process != null) process.destroy();
         }
         return result;
-    }
-
-    // 关闭流文件
-    private static void closeCloseable(Closeable... closeable) {
-        for (int i = 0; i < closeable.length; i++) {
-            if (null != closeable) {
-                try {
-                    closeable[i].close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 
     // 执行命令

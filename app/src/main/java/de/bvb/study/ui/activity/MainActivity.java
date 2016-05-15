@@ -3,7 +3,6 @@ package de.bvb.study.ui.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -14,15 +13,13 @@ import de.bvb.study.ui.fragment.MatchFragment;
 import de.bvb.study.ui.fragment.MeFragment;
 import de.bvb.study.ui.fragment.NewsFragment;
 import de.bvb.study.ui.fragment.VideoFragment;
-import de.bvb.study.ui.widget.SlidingMenuHorizontalScrollView;
 import de.bvb.study.ui.widget.TopBar;
 import de.bvb.study.ui.widget.ViewPagerIndicator;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity {
 
     public TopBar topBar;
     private ViewPagerIndicator viewPagerIndicator;
-    private SlidingMenuHorizontalScrollView slidingMenuHorizontalScrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,28 +27,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
         initView();
         initData();
+
+        viewPagerIndicator.setViewPageCurrentItem(3);
     }
 
     private void initView() {
-        slidingMenuHorizontalScrollView = $(this, R.id.slidingMenuHorizontalScrollView);
         viewPagerIndicator = $(this, R.id.viewPagerIndicatorMain);
         topBar = $(this, R.id.topBar);
-        topBar.setTopBarLeftIcon(R.mipmap.ic_launcher);
-        topBar.setTopBarClickListener(new TopBar.TopBarClickListener() {
-            @Override
-            public void onRightClick() {
-
-            }
-
-            @Override
-            public void onLeftClick() {
-                slidingMenuHorizontalScrollView.toggleLeftMenuDisplayState();
-            }
-        });
-
-        $(this, R.id.ll0).setOnClickListener(this);
-        $(this, R.id.ll1).setOnClickListener(this);
-        $(this, R.id.ll2).setOnClickListener(this);
     }
 
     private void initData() {
@@ -69,50 +51,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         viewPagerIndicator.setScrollable(false);
     }
 
-//    @Override
-//    public boolean dispatchTouchEvent(MotionEvent event) {
-//        if (slidingMenuHorizontalScrollView.isLeftMenuVisibility) {
-//            slidingMenuHorizontalScrollView.setLeftMenuGone();
-//            return false;
-//        } else {
-//            return super.dispatchTouchEvent(event);
-//        }
-//    }
-
 
     private long mExitTime;
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (slidingMenuHorizontalScrollView.isLeftMenuVisibility) {
-                slidingMenuHorizontalScrollView.setLeftMenuGone();
+            if ((System.currentTimeMillis() - mExitTime) > 1000) {
+                Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
+                mExitTime = System.currentTimeMillis();
             } else {
-                if ((System.currentTimeMillis() - mExitTime) > 2000) {
-                    Toast.makeText(this, "在按一次退出", Toast.LENGTH_SHORT).show();
-                    mExitTime = System.currentTimeMillis();
-                } else {
-                    finish();
-                }
+                finish();
             }
-            return true;
-        }
-        if (keyCode == KeyEvent.KEYCODE_MENU) {
             return true;
         }
         return super.onKeyDown(keyCode, event);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.ll0:
-                break;
-            case R.id.ll1:
-                break;
-            case R.id.ll2:
-                break;
-        }
-        Toast.makeText(this, v.getId() + "aa", Toast.LENGTH_SHORT).show();
-    }
 }

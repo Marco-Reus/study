@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable;
  * 获取 res/values/ 文件下的各种值
  */
 public class ValueUtil extends BaseUtil {
-    public String getString(int id) {
+    public static String getString(int id) {
         return resources.getString(id);
     }
 

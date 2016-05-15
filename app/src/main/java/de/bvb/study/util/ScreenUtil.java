@@ -12,7 +12,7 @@ import android.view.WindowManager;
 import java.io.FileOutputStream;
 
 
-public class ScreenUtil {
+public class ScreenUtil  extends BaseUtil {
 
     /** 获取屏幕密度 */
     public static float getScreenDensity(Context context) {

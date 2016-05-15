@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import com.nineoldandroids.view.ViewHelper;
 
 import de.bvb.study.R;
-import de.bvb.study.util.LogUtil;
 import de.bvb.study.util.ScreenUtil;
 
 /**
@@ -38,7 +37,6 @@ public class SlidingMenuHorizontalScrollView extends HorizontalScrollView {
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SlidingMenuHorizontalScrollView, defStyleAttr, 0);
         contentWidthWhenLeftMenuVisibility = a.getDimensionPixelSize(R.styleable.SlidingMenuHorizontalScrollView_contentWidthWhenLeftMenuVisibility, screenWidthPixels / 4);// 默认值为屏幕宽度/4
         leftMenuBgColor = a.getColor(R.styleable.SlidingMenuHorizontalScrollView_leftMenuBgColor, Color.TRANSPARENT);
-        LogUtil.e("contentWidthWhenLeftMenuVisibility TypedArray" + contentWidthWhenLeftMenuVisibility);
         a.recycle();
     }
 
@@ -60,7 +58,6 @@ public class SlidingMenuHorizontalScrollView extends HorizontalScrollView {
             content = (ViewGroup) wrapper.getChildAt(1);
             menuWidth = menu.getLayoutParams().width = screenWidthPixels - contentWidthWhenLeftMenuVisibility;
             content.getLayoutParams().width = screenWidthPixels;
-            LogUtil.e("contentWidthWhenLeftMenuVisibility " + contentWidthWhenLeftMenuVisibility);
             hasNotMeasured = false;
             menu.setBackgroundColor(leftMenuBgColor);
         }

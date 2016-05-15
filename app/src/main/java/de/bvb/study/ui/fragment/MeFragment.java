@@ -14,8 +14,10 @@ import de.bvb.study.R;
 import de.bvb.study.common.CommonAdapter;
 import de.bvb.study.common.CommonViewHolder;
 import de.bvb.study.entity.MeListViewAdapterEntity;
+import de.bvb.study.ui.activity.DownloadActivity;
 import de.bvb.study.ui.activity.FeedbackActivity;
 import de.bvb.study.ui.activity.LoginActivity;
+import de.bvb.study.ui.activity.ToolActivity;
 import de.bvb.study.util.ActivityUtil;
 
 /**
@@ -36,9 +38,10 @@ public class MeFragment extends BaseFragment implements AdapterView.OnItemClickL
 
         dataList = new ArrayList<>();
         dataList.add(new MeListViewAdapterEntity(R.mipmap.ic_launcher, "收藏", FeedbackActivity.class));
-        dataList.add(new MeListViewAdapterEntity(R.mipmap.ic_launcher, "下载", FeedbackActivity.class));
+        dataList.add(new MeListViewAdapterEntity(R.mipmap.ic_launcher, "下载", DownloadActivity.class));
         dataList.add(new MeListViewAdapterEntity(R.mipmap.ic_launcher, "设置", FeedbackActivity.class));
         dataList.add(new MeListViewAdapterEntity(R.mipmap.ic_launcher, "反馈", FeedbackActivity.class));
+        dataList.add(new MeListViewAdapterEntity(R.mipmap.ic_launcher, "工具", ToolActivity.class));
         adapter = new CommonAdapter<MeListViewAdapterEntity>(getContext(), dataList, R.layout.adapter_me_list_view) {
             @Override
             public void convert(CommonViewHolder holder, MeListViewAdapterEntity meListViewAdapterEntity) {

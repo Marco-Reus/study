@@ -10,20 +10,21 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import java.lang.reflect.Field;
+import java.security.InvalidParameterException;
 import java.util.List;
 
+import de.bvb.study.util.DimenUtil;
 import de.bvb.study.util.LogUtil;
+import de.bvb.study.util.ScreenUtil;
 
 /**
  * 使用 ViewPager 和 RadioGroup 封装的一个导航控件<p/>
@@ -82,8 +83,8 @@ public class ViewPagerIndicator extends LinearLayout implements RadioGroup.OnChe
     // 是否允许ViewPager 滑动
     private boolean scrollable = true;
     // radioGroup 即tab 栏的高度,可以使用 DimenUtil 传入dp单位的高度
-    private int radioGroupShowIconHeight = 54 * 3;
-    private int radioGroupGoneIconHeight = 36 * 3;
+    private final int radioGroupShowIconHeight = DimenUtil.dip2px(54f);
+    private final int radioGroupGoneIconHeight = DimenUtil.dip2px(36f);
     private int radioGroupHeight = radioGroupShowIconHeight;
     private Context context;
     // 屏幕宽度
@@ -112,14 +113,18 @@ public class ViewPagerIndicator extends LinearLayout implements RadioGroup.OnChe
         this.context = context;
         this.setOrientation(VERTICAL);
         // 获取屏幕宽度
-        DisplayMetrics outMetrics = new DisplayMetrics();
-        ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(outMetrics);
-        mScreenWidth = outMetrics.widthPixels;
+        mScreenWidth = ScreenUtil.getScreenWidthPixels(context);
+        LogUtil.d("mScreenWidth " + mScreenWidth);
     }
 
     /** 设置是否允许ViewPager 滑动 */
     public void setScrollable(boolean scrollable) {
         this.scrollable = scrollable;
+    }
+
+    /** 设置 viewPager 的页面 */
+    public void setViewPageCurrentItem(int index) {
+        mViewPager.setCurrentItem(index);
     }
 
     /**
@@ -132,7 +137,7 @@ public class ViewPagerIndicator extends LinearLayout implements RadioGroup.OnChe
      */
     public void bind(List<Fragment> fragments, List<IndicatorEntity> indicatorEntityList) {
         if (fragments == null || fragments.size() <= 0 || indicatorEntityList == null || indicatorEntityList.size() <= 0 || fragments.size() != indicatorEntityList.size()) {
-            LogUtil.e("fragments 和 indicatorEntityList 的数量必须一致");
+            new InvalidParameterException("fragments 和 indicatorEntityList 的数量必须一致");
         }
         this.indicatorEntityList = indicatorEntityList;
         isShowIconEnable = indicatorEntityList.get(0).isShowIconEnable;

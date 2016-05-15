@@ -3,7 +3,7 @@ package de.bvb.study.util;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
-public class DateTimeUtil {
+public class DateTimeUtil  extends BaseUtil  {
 
     public final class FormatType {
         public static final String FULL = "yyyy:MM:dd HH:mm:ss:SSS";

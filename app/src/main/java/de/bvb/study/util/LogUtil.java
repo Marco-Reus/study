@@ -5,10 +5,10 @@ import android.util.Log;
 
 import de.bvb.study.MyApplication;
 
-public class LogUtil {
+public class LogUtil extends BaseUtil {
     public static boolean isDebug = MyApplication.isDebug;
 
-    private final static String APP_TAG = "myApp";
+    private final static String APP_TAG = AppUtil.getAppName();
 
     /**
      * 获取相关数据:类名,方法名,行号等.用来定位行<br>
@@ -35,6 +35,18 @@ public class LogUtil {
             }
         }
         return null;
+    }
+
+    public static void d(String msg) {
+        if (isDebug) {
+            Log.d(APP_TAG, getMsgFormat(msg));
+        }
+    }
+
+    public static void d(String tag, String msg) {
+        if (isDebug) {
+            Log.d(tag, getMsgFormat(msg));
+        }
     }
 
     public static void e(String msg) {

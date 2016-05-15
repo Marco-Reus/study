@@ -2,7 +2,7 @@ package de.bvb.study.util;
 
 import de.bvb.study.MyApplication;
 
-public class DimenUtil {
+public class DimenUtil  extends BaseUtil {
 
     /** sp转换成px */
     public static int sp2px(float spValue) {

@@ -11,25 +11,22 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-import de.bvb.study.MyApplication;
-
-public class SPUtil {
+public class SPUtil extends BaseUtil {
 
     /** debug 环境下允许修改 sp文件的路径 */
     public static final boolean isDebug = true;
-    /** 修改以后的sp文件的路径 MyApplication.getContext().getExternalFilesDir(null).getAbsolutePath()=/sdcard/Android/%package_name%/file */
-    public static final String FILE_PATH = MyApplication.getContext().getExternalFilesDir(null).getAbsolutePath();
+    /** 修改以后的sp文件的路径 MyApplication.getContext().getExternalFilesDir(shared_prefs).getAbsolutePath()=/sdcard/Android/%package_name%/files/shared_prefs */
+    public static final String FILE_PATH = context.getExternalFilesDir("shared_prefs").getAbsolutePath();
 
     /**
      * 保存数据
      *
-     * @param context
      * @param fileName 文件名, 不需要".xml"
      * @param keyName
      * @param value
      */
-    public static void put(Context context, String fileName, String keyName, Object value) {
-        SharedPreferences.Editor editor = getSharedPreferences(context, fileName).edit();
+    public static void put(String fileName, String keyName, Object value) {
+        SharedPreferences.Editor editor = getSharedPreferences(fileName).edit();
         if (value instanceof String) {
             editor.putString(keyName, (String) value);
         } else if (value instanceof Integer) {
@@ -50,14 +47,13 @@ public class SPUtil {
     /**
      * 获取数据
      *
-     * @param context
      * @param fileName
      * @param keyName
      * @param defaultValue 默认值
      * @return
      */
-    public static Object get(Context context, String fileName, String keyName, Object defaultValue) {
-        SharedPreferences sp = getSharedPreferences(context, fileName);
+    public static Object get(String fileName, String keyName, Object defaultValue) {
+        SharedPreferences sp = getSharedPreferences(fileName);
         if (defaultValue instanceof String) {
             return sp.getString(keyName, (String) defaultValue);
         } else if (defaultValue instanceof Integer) {
@@ -76,19 +72,18 @@ public class SPUtil {
     /**
      * 移除某个key值对应的值
      *
-     * @param context
      * @param fileName
      * @param keyName
      */
-    public static void remove(Context context, String fileName, String keyName) {
-        SharedPreferences.Editor editor = getSharedPreferences(context, fileName).edit();
+    public static void remove(String fileName, String keyName) {
+        SharedPreferences.Editor editor = getSharedPreferences(fileName).edit();
         editor.remove(keyName);
         SharedPreferencesCompat.apply(editor);
     }
 
     /** 清除所有数据 */
-    public static void clear(Context context, String fileName) {
-        SharedPreferences.Editor editor = getSharedPreferences(context, fileName).edit();
+    public static void clear(String fileName) {
+        SharedPreferences.Editor editor = getSharedPreferences(fileName).edit();
         editor.clear();
         SharedPreferencesCompat.apply(editor);
     }
@@ -96,17 +91,16 @@ public class SPUtil {
     /**
      * 查询某个key是否已经存在
      *
-     * @param context
      * @param keyName
      * @return
      */
-    public static boolean contains(Context context, String fileName, String keyName) {
-        return getSharedPreferences(context, fileName).contains(keyName);
+    public static boolean contains(String fileName, String keyName) {
+        return getSharedPreferences(fileName).contains(keyName);
     }
 
     /** 返回所有的键值对 */
-    public static Map<String, ?> getAll(Context context, String fileName) {
-        return getSharedPreferences(context, fileName).getAll();
+    public static Map<String, ?> getAll(String fileName) {
+        return getSharedPreferences(fileName).getAll();
     }
 
 
@@ -142,12 +136,11 @@ public class SPUtil {
     }
 
     /**
-     * @param context
      * @param fileName
      * @return isDebug = 返回修改路径(路径不存在会自动创建)以后的 SharedPreferences :%FILE_PATH%/%fileName%.xml<br/>
      * !isDebug = 返回默认路径下的 SharedPreferences : /data/data/%package_name%/shared_prefs/%fileName%.xml
      */
-    private static SharedPreferences getSharedPreferences(Context context, String fileName) {
+    private static SharedPreferences getSharedPreferences(String fileName) {
         if (isDebug) {
             try {
                 // 获取ContextWrapper对象中的mBase变量。该变量保存了ContextImpl对象

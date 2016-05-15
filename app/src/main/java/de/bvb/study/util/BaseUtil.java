@@ -11,4 +11,13 @@ import de.bvb.study.MyApplication;
 public class BaseUtil {
     protected static Context context = MyApplication.getContext();
     protected static Resources resources = context.getResources();
+
+    /**
+     * 禁止子类被 new 出来
+     */
+    protected BaseUtil() { throw new UnsupportedOperationException(getClass().getSimpleName() + " .class cannot be instantiated");}
+
+    protected static Object getSystemService(String serviceName) {
+        return context.getSystemService(serviceName);
+    }
 }
