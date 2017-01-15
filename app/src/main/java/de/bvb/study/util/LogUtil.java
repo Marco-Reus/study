@@ -6,7 +6,7 @@ import android.util.Log;
 import de.bvb.study.MyApplication;
 
 public class LogUtil extends BaseUtil {
-    public static boolean isDebug = MyApplication.isDebug;
+    private static final boolean isDebug = MyApplication.isDebug;
 
     private final static String APP_TAG = AppUtil.getAppName();
 

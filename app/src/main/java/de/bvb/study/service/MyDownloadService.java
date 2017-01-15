@@ -1,10 +1,12 @@
 package de.bvb.study.service;
 
+import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.text.TextUtils;
 
 import java.io.File;
 import java.io.RandomAccessFile;
@@ -15,6 +17,7 @@ import de.bvb.study.MyApplication;
 import de.bvb.study.entity.download.FileInfo;
 import de.bvb.study.util.LogUtil;
 import de.bvb.study.util.StreamUtil;
+import de.bvb.study.util.StringUtil;
 
 public class MyDownloadService extends Service {
     public static final String ACTION_START = "start";
@@ -41,6 +44,13 @@ public class MyDownloadService extends Service {
             }
         }
     };
+
+    public static void startDownload(Activity activity, FileInfo fileInfo) {
+        Intent intent = new Intent(activity, MyDownloadService.class);
+        intent.putExtra(MyDownloadService.EXTRA_KEY_FILE_INFO, fileInfo);
+        intent.setAction(MyDownloadService.ACTION_START);
+        activity.startService(intent);
+    }
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -87,9 +97,16 @@ public class MyDownloadService extends Service {
                 // 获取文件长度
                 long length = 0l;
                 connection = (HttpURLConnection) new URL(fileInfo.url).openConnection();
+                connection.connect();
                 connection.setConnectTimeout(3000);
-                //connection.setRequestMethod("GET");
-                if (connection.getResponseCode() == 200) length = connection.getContentLength();
+                if (connection.getResponseCode() == 200) {
+                    length = connection.getContentLength();
+                    String contentName = connection.getHeaderField("Content-Disposition");
+                    if (!TextUtils.isEmpty(contentName)) {
+                        fileInfo.fileName = StringUtil.unicode2Cn(contentName.split("filename=")[1].replace("\"", ""));
+                    }
+                    LogUtil.d("download", connection.getHeaderField("Content-Type"));
+                }
                 if (length <= 0) return;
                 // 回传,更新实例
                 fileInfo.fileLength = length;

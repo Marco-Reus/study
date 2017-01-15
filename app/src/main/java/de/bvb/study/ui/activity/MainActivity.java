@@ -34,6 +34,17 @@ public class MainActivity extends BaseActivity {
     private void initView() {
         viewPagerIndicator = $(this, R.id.viewPagerIndicatorMain);
         topBar = $(this, R.id.topBar);
+        topBar.setTopBarClickListener(new TopBar.TopBarClickListener() {
+            @Override
+            public void onRightClick() {
+
+            }
+
+            @Override
+            public void onLeftClick() {
+                exit();
+            }
+        });
     }
 
     private void initData() {
@@ -57,15 +68,19 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if ((System.currentTimeMillis() - mExitTime) > 1000) {
-                Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
-                mExitTime = System.currentTimeMillis();
-            } else {
-                finish();
-            }
+            exit();
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void exit() {
+        if ((System.currentTimeMillis() - mExitTime) > 1000) {
+            Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
+            mExitTime = System.currentTimeMillis();
+        } else {
+            finish();
+        }
     }
 
 }

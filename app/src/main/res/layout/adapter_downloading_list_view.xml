@@ -25,11 +25,10 @@
 
         <ProgressBar
             android:background="#ff0"
-            android:padding="2dp"
             android:id="@+id/pb"
             style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="match_parent"
-            android:layout_height="20dp"/>
+            android:layout_height="2dp"/>
     </LinearLayout>
 
     <ToggleButton

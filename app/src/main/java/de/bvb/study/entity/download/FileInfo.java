@@ -2,6 +2,8 @@ package de.bvb.study.entity.download;
 
 import java.io.Serializable;
 
+import de.bvb.study.util.DateTimeUtil;
+
 /**
  * Created by Administrator on 2016/5/14.
  */
@@ -21,6 +23,14 @@ public class FileInfo implements Serializable {
         this.url = url;
         this.fileLength = fileLength;
         this.finished = finished;
+    }
+
+    public FileInfo(String url) {
+        this.url = url;
+        this.id = (int) (System.currentTimeMillis() % DateTimeUtil.DAY);
+        this.fileLength = 0;
+        this.finished = 0;
+        this.fileName = DateTimeUtil.formatCurrentTime();
     }
 
     @Override

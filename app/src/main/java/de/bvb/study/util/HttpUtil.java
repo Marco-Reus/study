@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 
 /**
  * 网络相关的工具类
@@ -22,8 +24,21 @@ public class HttpUtil extends BaseUtil {
 
     /** 判断是否是wifi连接 */
     public static boolean isWifi() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm != null && (cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI);
+        ConnectivityManager connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return connectivity != null && (connectivity.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI);
+    }
+
+    public static String getIPv4() {
+        if (!isWifi()) return null;
+        // 获取WiFi服务
+        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        // 判断WiFi是否开启
+        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+        int ipAddress = wifiInfo.getIpAddress();
+        return (ipAddress & 0xFF) + "." +
+                ((ipAddress >> 8) & 0xFF) + "." +
+                ((ipAddress >> 16) & 0xFF) + "." +
+                (ipAddress >> 24 & 0xFF);
     }
 
     /**

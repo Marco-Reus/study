@@ -19,10 +19,10 @@ import java.util.Map;
 /**
  * 保存运行时异常的信息到手机上<p/>
  * 文件路径:
- * /sdcard/Android/%package_name%/files/logs/crash_yyyy_MM_dd.log<br/>
+ * /sdcard/Android/data/%package_name%/files/logs/crash_yyyy_MM_dd.log<br/>
  * TODO 异常会保存3次, 应用会重启两次,这个不知道什么原因
  */
-public class CrashHandlerUtil extends BaseUtil implements Thread.UncaughtExceptionHandler {
+public class CrashHandlerUtil  implements Thread.UncaughtExceptionHandler {
 
     private final String FILE_NAME_FORMAT = "yyyy_MM_dd";
     private final String FILE_NAME_PREFIXES = "crash_";
@@ -82,7 +82,7 @@ public class CrashHandlerUtil extends BaseUtil implements Thread.UncaughtExcepti
 
             @Override
             public void run() {
-                Looper.prepare();
+                Looper.prepare(); //在子线程中显示Toast 需要显示调用  Looper.prepare() 和  Looper.loop() 这2个方法
                 Toast.makeText(mContext, "很抱歉，程序遭遇异常，即将退出！", Toast.LENGTH_SHORT).show();
                 Looper.loop();
             }

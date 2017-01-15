@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -24,6 +25,7 @@ import de.bvb.study.util.LogUtil;
 public class DownloadingFragment extends BaseFragment implements CompoundButton.OnCheckedChangeListener {
 
     private View view;
+    private ListView lv;
     private TextView tvName;
     private ProgressBar pb;
     private ToggleButton toggleButton;

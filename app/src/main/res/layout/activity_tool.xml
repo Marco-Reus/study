@@ -13,6 +13,12 @@
         android:layout_height="wrap_content"/>
 
     <ToggleButton
+        android:id="@+id/toggleButtonAdbWireless"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:checked="false"/>
+
+    <ToggleButton
         android:id="@+id/toggleButtonFlash"
         android:layout_width="match_parent"
         android:layout_height="48dp"

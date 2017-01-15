@@ -25,7 +25,7 @@ public class RunTimeUtil extends BaseUtil {
 
     /** 通过执行命令的方式判断手机是否root, 会有申请root权限的对话框出现 */
     public static boolean hasRooted() {
-        return execSilent("echo test");
+        return execSilent("echo test has rooted");
     }
 
     /** 执行命令获取结果集 */
@@ -46,7 +46,7 @@ public class RunTimeUtil extends BaseUtil {
                 dataList.add(content);
             }
         } catch (Exception e) {
-            //e.printStackTrace();
+            throw new RuntimeException(e);
         } finally {
             StreamUtil.closeCloseable(reader, writer);
             if (process != null) process.destroy();
@@ -64,7 +64,7 @@ public class RunTimeUtil extends BaseUtil {
             runCmd(writer, cmd);
             process.waitFor();
         } catch (Exception e) {
-            // e.printStackTrace();
+            throw new RuntimeException(e);
         } finally {
             StreamUtil.closeCloseable(writer);
             if (process != null) process.destroy();
@@ -94,7 +94,7 @@ public class RunTimeUtil extends BaseUtil {
             process.waitFor();
             result = process.exitValue() == 0;
         } catch (Exception e) {
-            // e.printStackTrace();
+            throw new RuntimeException(e);
         } finally {
             StreamUtil.closeCloseable(writer);
             if (process != null) process.destroy();
@@ -107,6 +107,7 @@ public class RunTimeUtil extends BaseUtil {
         for (int i = 0; i < cmd.length; i++) {
             writer.write(cmd[i] + "\n");
             writer.flush();
+            LogUtil.d("runCmd:   " + cmd[i]);
         }
         writer.write("exit \n");
         writer.flush();

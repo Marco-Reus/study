@@ -7,6 +7,10 @@ import java.util.List;
  */
 public class ListUtil extends BaseUtil {
     public static boolean isEmpty(List list) {
-        return list == null || list.size() <= 0;
+        return null == list || list.size() <= 0;
+    }
+
+    public static int getLength(List list) {
+        return null == list ? 0 : list.size();
     }
 }

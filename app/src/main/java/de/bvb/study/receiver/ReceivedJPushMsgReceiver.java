@@ -16,7 +16,11 @@ import de.bvb.study.ui.activity.LoginActivity;
 import de.bvb.study.util.RunTimeUtil;
 
 /**
- * Created by zWX299749 on 2016-02-29.
+ * 极光推送账号密码:
+ * https://www.jiguang.cn/push/app/2dd6d35488faf04d56e919cd/push/custom_notification
+ * us0911
+ * 1q1111
+ *
  * 如果不定义这个 Receiver，则：
  * 1) 默认用户会打开主界面
  * 2) 接收不到自定义消息

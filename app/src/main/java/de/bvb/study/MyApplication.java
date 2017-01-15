@@ -23,7 +23,7 @@ public class MyApplication extends Application {
         instance = this;
 
         // 初始化 CrashHandle
-        if (!isDebug) CrashHandlerUtil.getInstance().init(this); //uat模式下不收集日志
+        if (isDebug) CrashHandlerUtil.getInstance().init(this); //uat模式下不收集日志
 
         // 极光推送初始化
         if (jPushEnable) {
